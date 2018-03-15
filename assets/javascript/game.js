@@ -3,10 +3,12 @@ $(document).ready(function(){
     var gameObj = {
 
         heading: $("<header>").text("Video Game Trivia"),
+        interval: undefined,
         time: 30,
         correct: 0,
         incorrect: 0,
         count: 0,
+        timeRunning: false,
         // correctSound: new sound("assets/sounds/Title_Theme.mp3"),
 
         // incorrectSound:
@@ -27,6 +29,7 @@ $(document).ready(function(){
         $(".mainBody").append(gameObj.heading, "<br>", gameObj.button);
     }
     function setQuestion(){
+        $(".mainBody").append(gameObj.heading, "<br>");
         $(".mainBody").append($("<div>").text(gameObj.questions[gameObj.count].question));
     }
 
@@ -35,33 +38,32 @@ $(document).ready(function(){
             $("div").append($("<div>").text(gameObj.questions[gameObj.count].answers[i]));
         }
     }
-    // function stop(){
-    //
-    // }
+    function stop(){
+        clearInterval(gameObj.interval)
+    }
     function pageClear(){
         $(".mainBody").empty();
     }
     function countDown(){
-
-        gameObj.time--;
         console.log(gameObj.time);
+        gameObj.time--;
+        gameObj.interval = setInterval(countDown, 1000);
     }
 
     function startGame () {
         $("button").on("click", function () {
 
-            setInterval(countDown, 1000);
-
 
             console.log("this is an alert");
             pageClear();
-            reset();
+            countDown()
+            // reset();
 
             // $(".mainBody").append()
-
             setQuestion();
             console.log(" this is the length of answers: "+gameObj.questions[gameObj.count].answers.length);
             console.log("this is the answers[0]: " + gameObj.questions[gameObj.count].answers[0]);
+            debugger;
             setAnswers();
 
 
