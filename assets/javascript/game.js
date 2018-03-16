@@ -1,7 +1,7 @@
 $(document).ready(function(){
     
     var gameObj = {
-
+        body: $(".mainBody"),
         heading: $("<header>")
             .addClass("title")
             .text("Video Game Trivia"),
@@ -65,7 +65,7 @@ $(document).ready(function(){
 
     function setAnswers(){
         for(var i = 0; i < gameObj.questions[gameObj.count].answers.length; i++){
-            console.log("this is the answer to be logged: "+ i + " " + gameObj.questions[gameObj.count].answers[i]);
+            // console.log("this is the answer to be logged: "+ i + " " + gameObj.questions[gameObj.count].answers[i]);
             $(".question").append(
                 $("<div>").append(
                     $("<button>")
@@ -79,12 +79,14 @@ $(document).ready(function(){
         }
     }
     function stop(){
-        clearInterval(gameObj.interval)
+        clearInterval(gameObj.interval);
+        clearTimeout(gameObj.timeout);
     }
     function pageClear(){
-        $(".mainBody").empty();
+        gameObj.body.empty();
     }
     function timeOut(){
+        stop();
         game();
     }
     function countDown(){
@@ -95,14 +97,23 @@ $(document).ready(function(){
             tooLong();
         }
     }
+    function picture(){
+        console.log("this is the game count: " + gameObj.count);
+        gameObj.time = 30;
+        pageClear();
+        gameObj.body.append(
+            gameObj.questions[gameObj.count].ansPic
+        );
+        gameObj.count++;
+        gameObj.timeout = setTimeout(timeOut, 1000*5);
+    }
     function tooLong(){
         stop();
         pageClear();
-        $(".mainBody")
+        gameObj.body
             .append(
                 gameObj.noAnswer,
                 gameObj.questions[gameObj.count].ansPic
-
             );
         console.log(gameObj.questions[gameObj.count].ansPic);
         gameObj.count++;
@@ -110,10 +121,9 @@ $(document).ready(function(){
         // $(".main").append()
     }
     function game(){
-        // setHeading();
         console.log("this is an alert");
+        stop()
         gameObj.interval = setInterval(countDown, 1000);
-        clearTimeout(gameObj.timeout);
         pageClear();
         setQuestion();
         console.log(" this is the length of answers: "+ gameObj.questions[gameObj.count].answers.length);
@@ -121,22 +131,16 @@ $(document).ready(function(){
         setAnswers();
         $(document).on("click", ".answers", function(){
             stop();
-            alert("the button was clicked");
+            // alert("the button was clicked");
             console.log("this is the value of what was clicked: " + $(this).val());
             if($(this).val() === gameObj.questions[gameObj.count].correctAns){
                 gameObj.correct++;
                 console.log("this is the # of answers that are correct: " + gameObj.correct);
-                gameObj.count++;
-                console.log("this is the game count: " + gameObj.count);
-                gameObj.time = 30;
-                gameObj.timeout = setTimeout(timeOut, 1000*5);
+                picture();
             }else{
                 gameObj.incorrect++;
                 console.log("this is the # of answers that are incorrect: " + gameObj.incorrect);
-                gameObj.count++;
-                console.log("this is the game count: " + gameObj.count);
-                gameObj.time = 30;
-                gameObj.timeout = setTimeout(timeOut, 1000*5);
+                picture();
             }
         });
 
