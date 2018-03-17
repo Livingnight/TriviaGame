@@ -138,21 +138,21 @@ $(document).ready(function(){
     // gameObj.startBtn = gameObj.startBtn.text("Start!")
     function first(){
         pageClear();
-        setHeading();
-        gameObj.body.append(gameObj.heading, "<br>", gameObj.startBtn);
+        // setHeading();
+        gameObj.body.append("<br>", gameObj.startBtn);
     }
-    function setHeading(){
-        $(".header").append(gameObj.heading, "<br>",
-            $("<div>")
-                .addClass("timer")
-                .html("<p>Time Remaining: " + gameObj.time + "</p>"));
-
-    }
+    // function setHeading(){
+    //     $(".header").append(gameObj.heading, "<br>",
+    //         $("<div>")
+    //             .addClass("timer")
+    //             .html("<p>Time Remaining: " + gameObj.time + "</p>"));
+    //
+    // }
     function setQuestion(){
         $(".mainBody")
             .append($("<div>")
                 .addClass("question")
-                .html("<h1>"+ gameObj.questions[gameObj.count] + "</h1>")
+                .html("<p>" + gameObj.questions[gameObj.count].question + "</p>")
             );
     }
 
@@ -189,13 +189,14 @@ $(document).ready(function(){
     function countDown(){
         console.log("countDown function: " + gameObj.count);
         console.log(gameObj.time);
+        $(".timer").html("<p>" + gameObj.time);
         gameObj.time--;
         gameObj.startClicked = true;
         if(gameObj.count === gameObj.questions.length){
             stop();
             tallyPage();
         }
-        if(gameObj.time === 0){
+        if(gameObj.time === -1){
             tooLong();
         }
     }
@@ -284,7 +285,7 @@ $(document).ready(function(){
     first();
 
     $(document).on("click", ".start", function () {
-        setHeading();
+        // setHeading();
         game();
     });
     $(document).on("click", ".answers", function () {
