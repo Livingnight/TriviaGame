@@ -1,0 +1,43 @@
+body{
+    background: darkred url("../images/background.jpg");
+}
+.mainBody{
+    height: 500px;
+    width:1000px;
+    margin: 0 auto;
+    background: white;
+    opacity: .75;
+}
+p{
+    text-align: center;
+    font-size: 30px;
+}
+img{
+    display: block;
+    height: 300px;
+    width: 300px;
+    margin: 0 auto;
+}
+button{
+    opacity: 1;
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+}
+h1{
+    text-align: center;
+    font-size: 24px;
+}
+.header{
+    font-size: 30px;
+    height: 100px;
+    width: 1000px;
+    margin: 0 auto;
+    opacity: .75;
+    background: red;
+}
+.question{
+    margin: 0 auto;
+    text-align: center;
+    font-size: 30px;
+}

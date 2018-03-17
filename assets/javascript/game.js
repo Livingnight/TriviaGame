@@ -5,10 +5,10 @@ $(document).ready(function(){
         div: $("<div>"),
         heading: $("<header>")
             .addClass("title")
-            .text("Video Game Trivia"),
+            .html("<h1>Video Game Trivia</h1>"),
         noAnswer: $("<div>")
             .addClass("tooLong")
-            .text("You Took Too Long! Try again"),
+            .html("<p>You Took Too Long! Try again next time...</p>"),
         interval: undefined,
         timeout: undefined,
         time: 10,
@@ -19,7 +19,7 @@ $(document).ready(function(){
         anscorrect: false,
         startBtn: $("<button>")
             .addClass("start")
-            .text("Start!"),
+            .html("<span>Start!</span>"),
         questions: [
             {
                 question: "What was the first video game?",
@@ -40,7 +40,7 @@ $(document).ready(function(){
                 answers: ["Metroid II", "Super Mario Land", "Mega Man", "Tetris"],
                 correctAns: "Tetris",
                 ansPic: $("<img>")
-                    .attr("src", "assets/images/")
+                    .attr("src", "assets/images/gameboy.gif")
             },
             {
                 question: "What was the first game system ever created?",
@@ -71,11 +71,11 @@ $(document).ready(function(){
                     .attr("src", "assets/images/tetris.gif")
             },
             {
-                question: "What game put the Nintendo Gameboy on the map?",
-                answers: ["Metroid II", "Super Mario Land", "Mega Man", "Tetris"],
-                correctAns: "Tetris",
+                question: "What was the first movie based on a video game?",
+                answers: ["Samus: Remade", "Link: Person Unknown", "Super Mario Bros", "TMNT"],
+                correctAns: "Super Mario Bros",
                 ansPic: $("<img>")
-                    .attr("src", "assets/images/")
+                    .attr("src", "assets/images/mario-live.gif")
             },
             {
                 question: "In what year was the Playstation released?",
@@ -89,65 +89,70 @@ $(document).ready(function(){
                 answers: ["Azeroth", "Hyrule", "Tamriel", "Lordran"],
                 correctAns: "Hyrule",
                 ansPic: $("<img>")
-                    .attr("src", "assets/images/Hyrule_Warriors_Stage_Hyrule_Field.jpg")
+                    .attr("src", "assets/images/hyrule.gif")
             },
             {
                 question: "What was the first system to use discs instead of cartridges?",
-                answers: ["Saturn", "N64", "Playstation", ""],
-                correctAns: "Hyrule",
+                answers: ["Saturn", "N64", "Playstation", "Dreamcast"],
+                correctAns: "Saturn",
                 ansPic: $("<img>")
-                    .attr("src", "assets/images/")
+                    .attr("src", "assets/images/saturn.gif")
             },
             {
-                question: "",
-                answers: ["Azeroth", "Hyrule", "Tamriel", "Lordran"],
-                correctAns: "Hyrule",
+                question: "Who was originally going to release the playstation before a contract dispute?",
+                answers: ["Atari", "Commodore", "Nintendo", "Sega"],
+                correctAns: "Nintendo",
                 ansPic: $("<img>")
-                    .attr("src", "assets/images/")
+                    .attr("src", "assets/images/playstation.gif")
             },
             {
-                question: "",
-                answers: ["Azeroth", "Hyrule", "Tamriel", "Lordran"],
-                correctAns: "Hyrule",
+                question: "What year was the XBox released?",
+                answers: ["2438", "2001", "1995", "2008"],
+                correctAns: "2001",
                 ansPic: $("<img>")
-                    .attr("src", "assets/images/")
+                    .attr("src", "assets/images/xbox.gif")
             },
             {
-                question: "",
-                answers: ["Azeroth", "Hyrule", "Tamriel", "Lordran"],
-                correctAns: "Hyrule",
+                question: "What was the best selling Xbox game?",
+                answers: ["Perfect Dark", "Halo 2", "Metal Gear Solid", "Banjo-Kazooie"],
+                correctAns: "Halo 2",
                 ansPic: $("<img>")
-                    .attr("src", "assets/images/")
+                    .attr("src", "assets/images/halo2.gif")
             },
             {
-                question: "",
-                answers: ["Azeroth", "Hyrule", "Tamriel", "Lordran"],
-                correctAns: "Hyrule",
+                question: "What is the current generation of home console?",
+                answers: ["Ninth", "Seventh", "Third", "Sixth"],
+                correctAns: "Ninth",
                 ansPic: $("<img>")
-                    .attr("src", "assets/images/")
+                    .attr("src", "assets/images/console.gif")
             },
             {
-                question: "",
-                answers: ["Azeroth", "Hyrule", "Tamriel", "Lordran"],
-                correctAns: "Hyrule",
+                question: "What is the newest console currently released?",
+                answers: ["Switch", "PS4 Pro", "Scorpio", "360"],
+                correctAns: "Switch",
                 ansPic: $("<img>")
-                    .attr("src", "assets/images/")
+                    .attr("src", "assets/images/switch.gif")
             }
         ]
     };
     // gameObj.startBtn = gameObj.startBtn.text("Start!")
     function first(){
         pageClear();
+        setHeading();
         gameObj.body.append(gameObj.heading, "<br>", gameObj.startBtn);
     }
     function setHeading(){
-        $(".header").append(gameObj.heading, "<br>");
+        $(".header").append(gameObj.heading, "<br>",
+            $("<div>")
+                .addClass("timer")
+                .html("<p>Time Remaining: " + gameObj.time + "</p>"));
+
     }
     function setQuestion(){
         $(".mainBody")
             .append($("<div>")
                 .addClass("question")
-                .text(gameObj.questions[gameObj.count].question)
+                .html("<h1>"+ gameObj.questions[gameObj.count] + "</h1>")
             );
     }
 
@@ -221,8 +226,8 @@ $(document).ready(function(){
             if (gameObj.count === gameObj.questions.length) {
                 tallyPage();
             }
-            gameObj.body.append(gameObj.div.html("<p>You answered Incorrectly! the correct answer was " +
-                gameObj.questions[gameObj.count].correctAns + "</p>"));
+            gameObj.body.append(gameObj.div.html("<p>You answered Incorrectly! The correct answer was " +
+                gameObj.questions[gameObj.count].correctAns + "!</p>"));
 
         }
         gameObj.body.append(
@@ -248,7 +253,7 @@ $(document).ready(function(){
             console.log(gameObj.questions[gameObj.count-1].ansPic);
 
             gameObj.incorrect++;
-            setTimeout(game, 1000 * 5);
+            setTimeout(game, 1000 * 3);
         }
     }
     function reset(){
@@ -276,7 +281,6 @@ $(document).ready(function(){
         // console.log("this is the answers[0]: " + gameObj.questions[gameObj.count].answers[0]);
         setAnswers();
     }
-    setHeading();
     first();
 
     $(document).on("click", ".start", function () {
